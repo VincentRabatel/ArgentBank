@@ -8,6 +8,13 @@ html {
 
 body {
   margin: 0;
+  /* Those styles are moved to #root for now */
+  /* display: flex;
+  flex-direction: column;
+  min-height: 100vh; */
+}
+
+#root {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
