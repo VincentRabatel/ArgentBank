@@ -9,7 +9,9 @@ function SignIn() {
     return (
         <Fragment>
             <Header />
-            <h1 className='signin-title'>Sign in</h1>
+            <main className='main bg-dark'>
+
+            </main>
             <Footer />
         </Fragment>
     )

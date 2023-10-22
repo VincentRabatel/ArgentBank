@@ -40,8 +40,8 @@ function Home() {
         <main>
             <Header />
             <Hero />
-            <section class='features'>
-              <h2 class="sr-only">Features</h2>
+            <section className='features'>
+              <h2 className="sr-only">Features</h2>
               <Feature
                 imageSrc={featureLeft.imageSrc}
                 imageAlt={featureLeft.imageAlt}
@@ -67,41 +67,3 @@ function Home() {
 }
 
 export default Home;
-
-/*
-
- <body>
-
-    <main>
-      <section class="features">
-        <h2 class="sr-only">Features</h2>
-        <div class="feature-item">
-          <img src="./img/icon-chat.png" alt="Chat Icon" class="feature-icon" />
-          <h3 class="feature-item-title">You are our #1 priority</h3>
-          <p>
-            Need to talk to a representative? You can get in touch through our
-            24/7 chat or through a phone call in less than 5 minutes.
-          </p>
-        </div>
-
-
-
-        <div class="feature-item">
-          <img
-            src="./img/icon-security.png"
-            alt="Chat Icon"
-            class="feature-icon"
-          />
-          <h3 class="feature-item-title">Security you can trust</h3>
-          <p>
-            We use top of the line encryption to make sure your data and money
-            is always safe.
-          </p>
-        </div>
-      </section>
-    </main>
-
-  </body>
-
-
-*/

@@ -6,9 +6,9 @@ function Feature({imageSrc, imageAlt, title, content}) {
     console.log(imageSrc)
 
     return (
-        <div class="feature-item">
-          <img src={imageSrc} alt={imageAlt} class="feature-icon" />
-          <h3 class="feature-item-title">{title}</h3>
+        <div className="feature-item">
+          <img src={imageSrc} alt={imageAlt} className="feature-icon" />
+          <h3 className="feature-item-title">{title}</h3>
           <p>{content}</p>
         </div>
     )
