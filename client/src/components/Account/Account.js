@@ -1,6 +1,6 @@
 import './Account.css';
 
-function Account({title, amount, description}) {
+function Account({ title, amount, description }) {
 
     return (
         <section class="account">

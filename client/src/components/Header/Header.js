@@ -1,8 +1,9 @@
 import './Header.css';
 
-import logo from "../../assets/argentBankLogo.png" // relative path to image
+import logo from "../../assets/argentBankLogo.png";
 
 function Header() {
+
     return (
         <header>
             <nav className="main-nav">
@@ -16,8 +17,8 @@ function Header() {
                 </a>
                 <div>
                     <a className="main-nav-item" href="/signin">
-                    <i className="fa fa-user-circle"></i>
-                    Sign In
+                        <i className="fa fa-user-circle"></i>
+                        Sign In
                     </a>
                 </div>
             </nav>

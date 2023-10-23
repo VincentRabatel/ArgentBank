@@ -28,7 +28,7 @@ function SignIn() {
                             <label for="remember-me">Remember me</label>
                         </div>
                         {/* PLACEHOLDER DUE TO STATIC SITE */}
-                        <a href="/user" className="sign-in-button">Sign In</a>
+                        <a href="/user/test" className="sign-in-button">Sign In</a>
                         {/* SHOULD BE THE BUTTON BELOW */}
                         {/* <button className="sign-in-button">Sign In</button> */}
                     </form>

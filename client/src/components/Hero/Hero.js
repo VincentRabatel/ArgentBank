@@ -1,6 +1,7 @@
 import './Hero.css';
 
 function Hero() {
+
     return (
         <div className="hero">
             <section className="hero-content">
