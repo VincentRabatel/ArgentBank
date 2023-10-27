@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 import './User.css';
 
 import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer.js/Footer';
+import Footer from '../../components/Footer/Footer';
 import Account from '../../components/Account/Account';
 
 // Create objects to configure Features

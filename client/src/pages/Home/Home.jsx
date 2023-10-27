@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 import './Home.css';
 
 import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer.js/Footer';
+import Footer from '../../components/Footer/Footer';
 import Hero from '../../components/Hero/Hero';
 import Feature from '../../components/Feature/Feature';
 
