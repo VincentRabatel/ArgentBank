@@ -1,15 +1,25 @@
+// React
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+
+// React Rooter
+import { BrowserRouter } from 'react-router-dom';
+
+// React Redux Toolkit
+import { store } from "./store.jsx"
+import { Provider } from "react-redux" 
+
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <BrowserRouter>
         <React.StrictMode>
-            <App />
+            <Provider store={store}>
+                <App />
+            </Provider>
         </React.StrictMode>
     </BrowserRouter>
 );
