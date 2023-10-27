@@ -2,9 +2,9 @@ import { Routes, Route } from "react-router-dom";
 
 import './App.css';
 
-import Home from './pages/Home/Home.js';
-import SignIn from './pages/SignIn/SignIn.js';
-import User from './pages/User/User.js';
+import Home from './pages/Home/Home';
+import SignIn from './pages/SignIn/SignIn';
+import User from './pages/User/User';
 
 function App() {
     return (
