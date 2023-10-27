@@ -15,12 +15,12 @@ function Header() {
     const dispatch = useDispatch();
     const logstatus = useSelector(state => state.logstatus)
 
-    // if (logstatus.connected) {
-    //     console.log("Is redux store connected ?", logstatus.connected)
-    // }
-    // else {
-    //     console.log("Is redux store connected ?", logstatus.connected)
-    // }
+    if (logstatus.connected) {
+        console.log("Is redux store connected ?", logstatus.connected)
+    }
+    else {
+        console.log("Is redux store connected ?", logstatus.connected)
+    }
 
     function onClickHome(event) {
         event.preventDefault();
@@ -28,7 +28,7 @@ function Header() {
         navigate("/");
     }
 
-    function onClickSignin(event) {
+    function onClickSign(event) {
         event.preventDefault();
 
         if (logstatus.connected) {
@@ -37,6 +37,12 @@ function Header() {
         } else {
             navigate("/signin")
         }
+    }
+
+    function onClickUserName(event) {
+        event.preventDefault();
+
+        navigate("/user/test");
     }
 
     return (
@@ -51,14 +57,31 @@ function Header() {
                     <h1 className="sr-only">Argent Bank</h1>
                 </div>
 
-                <div>
-                    <div className="main-nav-item" onClick={event => onClickSignin(event)}>
-                        <i className="fa fa-user-circle"></i>
-                        {
-                            logstatus.connected ? "Log out" : "Log in"
-                        }
+
+                {
+                    // Change the header content depending if an user is connected
+                    logstatus.connected ?
+
+                    <div className="main-nav-signin">
+                        <div className="main-nav-item" onClick={event => onClickUserName(event)}>
+                            <i className="fa fa-user-circle"></i>
+                            Tony
+                        </div>
+                        <div className="main-nav-item" onClick={event => onClickSign(event)}>
+                            <i className="fa fa-sign-out"></i>
+                            Sign Out
+                        </div>
                     </div>
-                </div>
+                    
+                    :
+
+                    <div className="main-nav-signin">
+                        <div className="main-nav-item" onClick={event => onClickSign(event)}>
+                            <i className="fa fa-user-circle"></i>
+                            Sign in
+                        </div>
+                    </div>
+                }
             </nav>
         </header>
     )

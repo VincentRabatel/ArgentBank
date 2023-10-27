@@ -2,7 +2,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const checkStorage = () => {
-    // console.log("Is local storage connected ?", localStorage.getItem("connected"))
+    console.log("Is local storage connected ?", localStorage.getItem("connected"))
 
     const storageConnected = localStorage.getItem("connected");
 
@@ -38,7 +38,7 @@ export const logstatus = createSlice({
 
             localStorage.setItem("connected", "true")
 
-            console.log(state.log, action)
+            //console.log(state.log, action)
         },
         logout: (state, action) => {
             state.connected = false;
@@ -46,7 +46,7 @@ export const logstatus = createSlice({
 
             localStorage.setItem("connected", "false")
 
-            console.log(state.log, action)
+            //console.log(state.log, action)
         }
     }
 })

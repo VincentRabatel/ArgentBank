@@ -5,16 +5,25 @@
     padding: 5px 20px;
 }
 
-.main-nav a {
+/* .main-nav a {
     font-weight: bold;
     color: #2c3e50;
-}
+} */
 
 .main-nav a.router-link-exact-active {
     color: #42b983;
 }
 
+.main-nav-signin {
+    display: flex;
+    align-items: center;
+    
+}
+
 .main-nav-item {
+    display: inline;
+    color: #2c3e50;
+    font-weight: bold;
     text-decoration: none;
     margin-right: 0.5rem;
     
