@@ -5,8 +5,15 @@ import logo from "../../assets/argentBankLogo.png";
 // React Router
 import { useNavigate } from 'react-router';
 
+// React Redux
+import { useSelector } from "react-redux";
+import { useDispatch } from 'react-redux';
+import { logout } from "../../features/logstatus";
+
 function Header() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const logstatus = useSelector(state => state.logstatus)
 
     function onClickHome(event) {
         event.preventDefault();
@@ -17,7 +24,12 @@ function Header() {
     function onClickSignin(event) {
         event.preventDefault();
 
-        navigate("/signin");
+        if (logstatus.connected) {
+            dispatch(logout());
+            navigate("/")
+        } else {
+            navigate("/signin")
+        }
     }
 
     return (
@@ -31,10 +43,13 @@ function Header() {
                     />
                     <h1 className="sr-only">Argent Bank</h1>
                 </div>
+
                 <div>
                     <div className="main-nav-item" onClick={event => onClickSignin(event)}>
                         <i className="fa fa-user-circle"></i>
-                        Sign In
+                        {
+                            logstatus.connected ? "Log out" : "Log in"
+                        }
                     </div>
                 </div>
             </nav>

@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 // Definition of the default state
 const initialState = {
-    status: false,
+    connected: false,
     log: "Initialized, user is logged out"
 }
 
@@ -15,15 +15,15 @@ export const logstatus = createSlice({
     // Creation of the actions, they will modify the state
     reducers: {
         login: (state, action) => {
-            state.status = true;
+            state.connected = true;
             state.log = "User is logged in"
 
             console.log(state.log, action)
         },
         logout: (state, action) => {
-            state.status = false;
+            state.connected = false;
             state.log = "User is logged out"
-            
+
             console.log(state.log, action)
         }
     }
