@@ -17,10 +17,14 @@ export const logstatus = createSlice({
         login: (state, action) => {
             state.status = true;
             state.log = "User is logged in"
+
+            console.log(state.log, action)
         },
         logout: (state, action) => {
             state.status = false;
             state.log = "User is logged out"
+            
+            console.log(state.log, action)
         }
     }
 })

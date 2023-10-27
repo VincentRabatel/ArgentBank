@@ -1,11 +1,32 @@
-import { Fragment } from 'react';
-
+// Styles
 import './SignIn.css';
 
+// Components
 import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer.js/Footer';
+import Footer from '../../components/Footer/Footer';
+
+// React
+import { Fragment } from 'react';
+
+// React Router
+import { useNavigate } from 'react-router';
+
+// React Redux
+import { useDispatch } from "react-redux";
+import { login } from "../../features/logstatus";
+
 
 function SignIn() {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    function handleLogin(event, username, password) {
+        event.preventDefault();
+
+        dispatch(login(username));
+
+        navigate("/user/test");
+    }
 
     return (
         <Fragment>
@@ -16,21 +37,26 @@ function SignIn() {
                     <h1>Sign In</h1>
                     <form>
                         <div className="input-wrapper">
-                            <label for="username">Username</label>
+                            <label htmlFor="username">Username</label>
                             <input type="text" id="username" />
                         </div>
                         <div className="input-wrapper">
-                            <label for="password">Password</label>
+                            <label htmlFor="password">Password</label>
                             <input type="password" id="password" />
                         </div>
                         <div className="input-remember">
                             <input type="checkbox" id="remember-me" />
-                            <label for="remember-me">Remember me</label>
+                            <label htmlFor="remember-me">Remember me</label>
                         </div>
                         {/* PLACEHOLDER DUE TO STATIC SITE */}
-                        <a href="/user/test" className="sign-in-button">Sign In</a>
+                        {/* <a href="/user/test" className="sign-in-button">Sign In</a> */}
                         {/* SHOULD BE THE BUTTON BELOW */}
-                        {/* <button className="sign-in-button">Sign In</button> */}
+                        <button 
+                            className="sign-in-button"
+                            onClick={event => handleLogin(event, "Test username", "Test password")}
+                            href="/user/test">
+                            Sign In
+                        </button>
                     </form>
                 </section>
             </main>
