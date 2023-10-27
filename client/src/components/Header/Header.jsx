@@ -15,6 +15,13 @@ function Header() {
     const dispatch = useDispatch();
     const logstatus = useSelector(state => state.logstatus)
 
+    // if (logstatus.connected) {
+    //     console.log("Is redux store connected ?", logstatus.connected)
+    // }
+    // else {
+    //     console.log("Is redux store connected ?", logstatus.connected)
+    // }
+
     function onClickHome(event) {
         event.preventDefault();
 
