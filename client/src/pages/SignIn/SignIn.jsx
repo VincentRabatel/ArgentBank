@@ -22,25 +22,30 @@ function SignIn() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    async function handleLogin(event, username, password) {
+    async function handleLogin(event) {
         event.preventDefault();
 
-        const response = await api.postLogin();
+        const loginData = {
+            "email": document.querySelector('input[name="username"]').value,
+            "password": document.querySelector('input[name="password"]').value
+        }
+
+        const response = await api.postLogin(loginData);
 
         switch(response.status){
             // STATUS == Connected
             case 200 :
-                dispatch(login(username));
+                dispatch(login());
 
                 navigate("/user/test");
             break;
         
-            // STATUS == Not authorized
+            // STATUS == Invalid Fields
             case 400 :
                 window.alert("Invalid Fields");
             break;
             
-            // STATUS == User not found
+            // STATUS == Internal Server Error
             case 500 :
                 window.alert("Internal Server Error");
             break;
@@ -59,15 +64,15 @@ function SignIn() {
                     <i className="fa fa-user-circle sign-in-icon"></i>
                     <h1>Sign In</h1>
                     <form>
-                        
+
                         <div className="input-wrapper">
                             <label htmlFor="username">Username</label>
-                            <input type="text" id="username" />
+                            <input type="text" id="username" name="username" />
                         </div>
 
                         <div className="input-wrapper">
                             <label htmlFor="password">Password</label>
-                            <input type="password" id="password" />
+                            <input type="password" id="password" name="password" />
                         </div>
 
                         <div className="input-remember">
@@ -77,7 +82,7 @@ function SignIn() {
 
                         <button 
                             className="sign-in-button"
-                            onClick={event => handleLogin(event, "Test username", "Test password")}
+                            onClick={event => handleLogin(event)}
                             href="/user/test">
                             Sign In
                         </button>
