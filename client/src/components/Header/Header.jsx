@@ -46,6 +46,9 @@ function Header() {
         navigate("/user/test");
     }
 
+    // todo: use the User Profile to update the header
+    //const userProfile = await api.getUserProfile(loginData); console.log("User profile :", userProfile);
+
     return (
         <header>
             <nav className="main-nav">

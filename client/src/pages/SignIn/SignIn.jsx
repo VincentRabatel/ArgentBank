@@ -16,7 +16,8 @@ import { useDispatch } from "react-redux";
 import { login } from "../../features/logstatus";
 
 // Custom services
-import * as api from '../../services/api.js'
+import * as api from "../../services/api.js"
+import * as storage from "../../services/storage.js"
 
 function SignIn() {
     const navigate = useNavigate();
@@ -32,12 +33,13 @@ function SignIn() {
         }
 
         // Post login attempt infortmations to the server
-        const loginData = await api.postLogin(userInfos); console.log("Login data :", loginData);
-        const userProfile = await api.getUserProfile(); console.log("User profile :", userProfile);
-
-        switch(loginData.status){
+        const loginInfo = await api.postLogin(userInfos);
+        
+        switch(loginInfo.status){
             // STATUS == Connected
             case 200 :
+                storage.storeLoginToken(loginInfo.token);
+                
                 dispatch(login());
                 navigate("/user/test");
             break;
