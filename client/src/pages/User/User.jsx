@@ -1,7 +1,9 @@
-import { Fragment } from 'react';
-
 import './User.css';
 
+import { Fragment } from 'react';
+import { useSelector } from "react-redux";
+
+// Components
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import Account from '../../components/Account/Account';
@@ -26,12 +28,17 @@ const accountC = {
 }
 
 function User() {
+    // todo: change "logstatus" for a better name
+    const logstatus = useSelector(state => state.logstatus);
+
     return (
         <Fragment>
             <Header />
             <main className="main bg-dark">
                 <div className="user-header">
-                    <h1>Welcome back<br />Tony Jarvis!</h1>
+                    <h1>Welcome back<br />
+                    {`${logstatus.userFirstName} ${logstatus.userLastName}!`}
+                    </h1>
 
                     {/* todo: create a component for this button */}
                     <button className="edit-button">Edit Name</button>

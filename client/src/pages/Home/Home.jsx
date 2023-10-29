@@ -1,12 +1,11 @@
-import { Fragment } from 'react';
-
 import './Home.css';
+
+import { Fragment } from 'react';
 
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import Hero from '../../components/Hero/Hero';
 import Feature from '../../components/Feature/Feature';
-
 
 // Import all images to configure Feature's props
 import featureLeftImage from "../../assets/icon-chat.png";

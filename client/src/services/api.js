@@ -24,13 +24,13 @@ export async function postLogin(userInfos) {
     return loginInfo;
 }
 
-export async function getUserProfile(loginData){
+export async function getUserProfile(token){
 	console.trace("API : Getting user profile...");
      
     const userProfileResponse = await fetch("http://localhost:3001/api/v1/user/profile", {
 		method: 'POST',
 		headers: {
-			'Authorization': 'Bearer ' + loginData.body.token
+			'Authorization': 'Bearer ' + token
 		}
 	});
 

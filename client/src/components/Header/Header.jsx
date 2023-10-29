@@ -1,4 +1,3 @@
-// Styling
 import './Header.css';
 import logo from "../../assets/argentBankLogo.png";
 
@@ -13,15 +12,9 @@ import { logout } from "../../features/logstatus";
 function Header() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const logstatus = useSelector(state => state.logstatus)
 
-    // Debug logs
-    // if (logstatus.connected) {
-    //     console.log("Is redux store connected ?", logstatus.connected)
-    // }
-    // else {
-    //     console.log("Is redux store connected ?", logstatus.connected)
-    // }
+    // todo: change "logstatus" for a better name
+    const logstatus = useSelector(state => state.logstatus)
 
     function onClickHome(event) {
         event.preventDefault();
@@ -46,9 +39,6 @@ function Header() {
         navigate("/user/test");
     }
 
-    // todo: use the User Profile to update the header
-    //const userProfile = await api.getUserProfile(loginData); console.log("User profile :", userProfile);
-
     return (
         <header>
             <nav className="main-nav">
@@ -69,7 +59,8 @@ function Header() {
                     <div className="main-nav-signin">
                         <div className="main-nav-item" onClick={event => onClickUserName(event)}>
                             <i className="fa fa-user-circle"></i>
-                            Tony
+                            {logstatus.userFirstName}
+                            {/* USERNAME NOT FOUND */}
                         </div>
                         <div className="main-nav-item" onClick={event => onClickSign(event)}>
                             <i className="fa fa-sign-out"></i>

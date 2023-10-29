@@ -1,12 +1,4 @@
-// Styles
 import './SignIn.css';
-
-// Components
-import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footer';
-
-// React
-import { Fragment } from 'react';
 
 // React Router
 import { useNavigate } from 'react-router';
@@ -15,9 +7,12 @@ import { useNavigate } from 'react-router';
 import { useDispatch } from "react-redux";
 import { login } from "../../features/logstatus";
 
-// Custom services
 import * as api from "../../services/api.js"
 import * as storage from "../../services/storage.js"
+
+// Components
+import Header from '../../components/Header/Header';
+import Footer from '../../components/Footer/Footer';
 
 function SignIn() {
     const navigate = useNavigate();
@@ -40,7 +35,11 @@ function SignIn() {
             case 200 :
                 storage.storeLoginToken(loginInfo.token);
                 
-                dispatch(login());
+                const userProfile = await api.getUserProfile(loginInfo.token);
+
+                // We need to pass a string as tha action's payload
+                dispatch(login(JSON.stringify(userProfile)));
+
                 navigate("/user/test");
             break;
         
@@ -60,7 +59,7 @@ function SignIn() {
     }
 
     return (
-        <Fragment>
+        <>
             <Header />
             <main className='main bg-dark'>
                 <section className="sign-in-content">
@@ -94,7 +93,7 @@ function SignIn() {
                 </section>
             </main>
             <Footer />
-        </Fragment>
+        </>
     )
 }
 
