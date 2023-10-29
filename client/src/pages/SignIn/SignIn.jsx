@@ -25,18 +25,19 @@ function SignIn() {
     async function handleLogin(event) {
         event.preventDefault();
 
-        const loginData = {
+        // Get ths login attempt informations from the form
+        const userInfos = {
             "email": document.querySelector('input[name="username"]').value,
             "password": document.querySelector('input[name="password"]').value
         }
 
-        const response = await api.postLogin(loginData);
+        // Post login attempt infortmations to the server
+        const login = await api.postLogin(userInfos); console.log("Login response :", login);
 
-        switch(response.status){
+        switch(login.status){
             // STATUS == Connected
             case 200 :
                 dispatch(login());
-
                 navigate("/user/test");
             break;
         
@@ -53,7 +54,6 @@ function SignIn() {
             default:
                 window.alert("Something Wrong Happened");
         }
-
     }
 
     return (
