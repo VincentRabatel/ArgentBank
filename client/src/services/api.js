@@ -1,3 +1,5 @@
+import { UserProfile } from "../data/userProfile";
+
 export async function postLogin(userInfos) {
 	console.trace("API : Trying to log in...");
 
@@ -9,13 +11,12 @@ export async function postLogin(userInfos) {
 		body: JSON.stringify(userInfos)
 	});
 
-    const loginData = loginResponse.json();
+    const loginData = await loginResponse.json();
 
-    const login = loginData;
-
-    return login;
+    return loginData;
 }
 
+// todo: add token managment
 export async function getUserProfile(){
 	console.trace("API : Getting user profile...");
      
@@ -26,9 +27,17 @@ export async function getUserProfile(){
 		}
 	});
 
-    const userProfileData = userProfileResponse.json();
-
-    const userProfile = userProfileData;
-
+    const userProfileData = await userProfileResponse.json();
+    
+    const userProfile = new UserProfile(
+        userProfileData.body.createdAt,
+        userProfileData.body.email,
+        userProfileData.body.firstName,
+        userProfileData.body.id,
+        userProfileData.body.lastName,
+        userProfileData.body.updatedAt,
+        userProfileData.body.userName
+    );
+        
     return userProfile;
 }

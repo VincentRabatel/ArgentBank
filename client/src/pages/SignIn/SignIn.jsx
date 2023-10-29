@@ -32,9 +32,10 @@ function SignIn() {
         }
 
         // Post login attempt infortmations to the server
-        const login = await api.postLogin(userInfos); console.log("Login response :", login);
+        const loginData = await api.postLogin(userInfos); console.log("Login data :", loginData);
+        const userProfile = await api.getUserProfile(); console.log("User profile :", userProfile);
 
-        switch(login.status){
+        switch(loginData.status){
             // STATUS == Connected
             case 200 :
                 dispatch(login());

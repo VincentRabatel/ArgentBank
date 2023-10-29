@@ -2,7 +2,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const checkStorage = () => {
-    console.log("Is local storage connected ?", localStorage.getItem("connected"))
+    //console.log("Is local storage connected ?", localStorage.getItem("connected"))
 
     const storageConnected = localStorage.getItem("connected");
 
