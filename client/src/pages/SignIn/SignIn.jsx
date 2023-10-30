@@ -5,10 +5,9 @@ import { useNavigate } from 'react-router';
 
 // React Redux
 import { useDispatch } from "react-redux";
-import { login, setFirstName, setLastName } from "../../features/logstatus";
+import { login, setFirstName, setLastName } from "../../features/user";
 
 import * as api from "../../services/api.js"
-import * as storage from "../../services/storage.js"
 
 // Components
 import Header from '../../components/Header/Header';
@@ -39,7 +38,7 @@ function SignIn() {
                 // Get the user profile and dispatch its name to be stored
                 const userProfile = await api.getUserProfile(loginInfo.token);
                 
-                dispatch(setFirstName(JSON.stringify(userProfile.firstName)));
+                dispatch(setFirstName(userProfile.firstName));
                 dispatch(setLastName(userProfile.lastName));
 
                 navigate("/user/test");

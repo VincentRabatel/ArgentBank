@@ -28,8 +28,7 @@ const accountC = {
 }
 
 function User() {
-    // todo: change "logstatus" for a better name
-    const logstatus = useSelector(state => state.logstatus);
+    const user = useSelector(state => state.user);
 
     return (
         <Fragment>
@@ -37,7 +36,7 @@ function User() {
             <main className="main bg-dark">
                 <div className="user-header">
                     <h1>Welcome back<br />
-                    {`${logstatus.userFirstName} ${logstatus.userLastName}!`}
+                    {`${user.userFirstName} ${user.userLastName}!`}
                     </h1>
 
                     {/* todo: create a component for this button */}

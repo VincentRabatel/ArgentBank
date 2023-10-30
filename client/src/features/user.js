@@ -36,8 +36,8 @@ const initialState = {
     userLastName: checkStorage() ? userProfile.lastName : " "
 }
 
-export const logstatus = createSlice({
-    name: "logstatus",
+export const user = createSlice({
+    name: "user",
     initialState,
 
     // Creation of the reducer and the actions, they will modify the state
@@ -61,19 +61,21 @@ export const logstatus = createSlice({
         },
 
         setFirstName: (state, action) => {
-            state.userFirstName = JSON.parse(action.payload);
-            console.log("Setting user first name with :", JSON.parse(action.payload))
+            console.log("Setting user first name with :", action.payload)
+            
+            state.userFirstName = action.payload;
         },
         
         setLastName: (state, action) => {
-            state.userLastName = action.payload;
             console.log("Setting user last name with :", action.payload)
+            
+            state.userLastName = action.payload;
         }
     }
 })
 
 // Export all actions
-export const {login, logout, setFirstName, setLastName} = logstatus.actions;
+export const {login, logout, setFirstName, setLastName} = user.actions;
 
 // Export reducer
-export default logstatus.reducer;
+export default user.reducer;

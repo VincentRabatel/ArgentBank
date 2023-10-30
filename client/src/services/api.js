@@ -1,6 +1,7 @@
 import { Login } from "../data/login";
 import { UserProfile } from "../data/userProfile";
 
+// todo: add error managment
 export async function postLogin(userInfos) {
     console.trace("API : Trying to log in...");
     
@@ -24,6 +25,7 @@ export async function postLogin(userInfos) {
     return loginInfo;
 }
 
+// todo: add error managment
 export async function getUserProfile(token){
 	console.trace("API : Getting user profile...");
      

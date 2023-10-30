@@ -7,14 +7,13 @@ import { useNavigate } from 'react-router';
 // React Redux
 import { useSelector } from "react-redux";
 import { useDispatch } from 'react-redux';
-import { logout } from "../../features/logstatus";
+import { logout } from "../../features/user";
 
 function Header() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    // todo: change "logstatus" for a better name
-    const logstatus = useSelector(state => state.logstatus)
+    const user = useSelector(state => state.user)
 
     function onClickHome(event) {
         event.preventDefault();
@@ -25,7 +24,7 @@ function Header() {
     function onClickSign(event) {
         event.preventDefault();
 
-        if (logstatus.connected) {
+        if (user.connected) {
             dispatch(logout());
             navigate("/")
         } else {
@@ -54,12 +53,12 @@ function Header() {
 
                 {
                     // Change the header content depending if an user is connected
-                    logstatus.connected ?
+                    user.connected ?
 
                     <div className="main-nav-signin">
                         <div className="main-nav-item" onClick={event => onClickUserName(event)}>
                             <i className="fa fa-user-circle"></i>
-                            {logstatus.userFirstName}
+                            {user.userFirstName}
                             {/* USERNAME NOT FOUND */}
                         </div>
                         <div className="main-nav-item" onClick={event => onClickSign(event)}>
