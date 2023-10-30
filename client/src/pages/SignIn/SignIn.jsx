@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import { login, setFirstName, setLastName } from "../../features/user";
 
 import * as api from "../../services/api.js"
-
+import * as paths from "../../services/paths.js"
 // Components
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';

@@ -2,12 +2,14 @@ import './Board.css';
 
 import { Fragment, useEffect } from 'react';
 import { useNavigate } from 'react-router';
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
 // Components
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import Account from '../../components/Account/Account';
+
+import * as paths from '../../services/paths.js';
 
 // Create objects to configure Features
 const accountA = {
@@ -36,7 +38,7 @@ function Board() {
     // Redirect to sign in page if user isn't connected 
     useEffect(() => {
         if (!user.connected){
-         navigate("/signin")   
+         navigate(paths.signin)   
         }
     },[])
 

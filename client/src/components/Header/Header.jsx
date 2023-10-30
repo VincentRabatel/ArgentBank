@@ -1,13 +1,15 @@
 import './Header.css';
-import logo from "../../assets/argentBankLogo.png";
+import logo from '../../assets/argentBankLogo.png';
 
 // React Router
 import { useNavigate } from 'react-router';
 
 // React Redux
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { logout } from "../../features/user";
+import { logout } from '../../features/user';
+
+import * as paths from '../../services/paths';
 
 function Header() {
     const navigate = useNavigate();
@@ -18,7 +20,7 @@ function Header() {
     function onClickHome(event) {
         event.preventDefault();
 
-        navigate("/");
+        navigate(paths.home);
     }
 
     function onClickSign(event) {
@@ -26,16 +28,16 @@ function Header() {
 
         if (user.connected) {
             dispatch(logout());
-            navigate("/")
+            navigate(paths.home)
         } else {
-            navigate("/signin")
+            navigate(paths.signin)
         }
     }
 
     function onClickUserName(event) {
         event.preventDefault();
 
-        navigate("/board");
+        navigate(paths.board);
     }
 
     return (
@@ -59,7 +61,6 @@ function Header() {
                         <div className="main-nav-item" onClick={event => onClickUserName(event)}>
                             <i className="fa fa-user-circle"></i>
                             {user.userFirstName}
-                            {/* USERNAME NOT FOUND */}
                         </div>
                         <div className="main-nav-item" onClick={event => onClickSign(event)}>
                             <i className="fa fa-sign-out"></i>
