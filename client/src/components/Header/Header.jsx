@@ -60,7 +60,7 @@ function Header() {
                     <div className="main-nav-signin">
                         <div className="main-nav-item" onClick={event => onClickUserName(event)}>
                             <i className="fa fa-user-circle"></i>
-                            {user.userFirstName}
+                            {user.userName}
                         </div>
                         <div className="main-nav-item" onClick={event => onClickSign(event)}>
                             <i className="fa fa-sign-out"></i>

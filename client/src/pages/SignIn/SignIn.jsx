@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router';
 
 // React Redux
 import { useDispatch } from "react-redux";
-import { login, setFirstName, setLastName } from "../../features/user";
+import { login, setFirstName, setLastName, setUserName } from "../../features/user";
 
 import * as api from "../../services/api.js"
 import * as paths from "../../services/paths.js"
@@ -41,6 +41,7 @@ function SignIn() {
                 
                 dispatch(setFirstName(userProfile.firstName));
                 dispatch(setLastName(userProfile.lastName));
+                dispatch(setUserName(userProfile.userName));
 
                 navigate(paths.board);
             break;

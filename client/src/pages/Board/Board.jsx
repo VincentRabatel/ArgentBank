@@ -75,13 +75,25 @@ function Board() {
                                 </div>
     
                                 <div className="input-wrapper">
-                                    <label className="edit-label" htmlFor="firstName">First name:</label>
-                                    <input type="firstName" id="firstName" name="firstName" />
+                                    <label className="edit-label-disabled" htmlFor="firstName">First name:</label>
+                                    <input 
+                                        className="edit-input-disabled" 
+                                        placeholder={user.userFirstName}
+                                        type="firstName" 
+                                        id="firstName" 
+                                        name="firstName" 
+                                        disabled />
                                 </div>
     
                                 <div className="input-wrapper">
-                                    <label className="edit-label" htmlFor="lastName">Last name:</label>
-                                    <input type="lastName" id="lastName" name="lastName" />
+                                    <label className="edit-label-disabled" htmlFor="lastName">Last name:</label>
+                                    <input 
+                                        className="edit-input-disabled"
+                                        placeholder={user.userLastName}
+                                        type="lastName" 
+                                        id="lastName"
+                                        name="lastName"
+                                        disabled />
                                 </div>
     
                                 <div className="edit-buttons-container">

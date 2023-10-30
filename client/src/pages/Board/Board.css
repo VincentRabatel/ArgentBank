@@ -24,6 +24,14 @@
     color: #2c3e50;
 }
 
+.edit-label-disabled {
+    color: grey;
+}
+
+.edit-input-disabled {
+    
+}
+
 .edit-button {
     border-color: #00bc77;
     background-color: #00bc77;

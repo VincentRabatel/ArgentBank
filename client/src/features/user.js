@@ -33,7 +33,8 @@ const initialState = {
     loginToken: "",
 
     userFirstName: checkStorage() ? userProfile.firstName : " ",
-    userLastName: checkStorage() ? userProfile.lastName : " "
+    userLastName: checkStorage() ? userProfile.lastName : " ",
+    userName: checkStorage() ? userProfile.userName : " "
 }
 
 export const user = createSlice({
@@ -70,12 +71,18 @@ export const user = createSlice({
             console.log("Setting user last name with :", action.payload)
             
             state.userLastName = action.payload;
+        },
+        
+        setUserName: (state, action) => {
+            console.log("Setting username with :", action.payload)
+            
+            state.userName = action.payload;
         }
     }
 })
 
 // Export all actions
-export const {login, logout, setFirstName, setLastName} = user.actions;
+export const {login, logout, setFirstName, setLastName, setUserName} = user.actions;
 
 // Export reducer
 export default user.reducer;
