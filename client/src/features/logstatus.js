@@ -27,51 +27,53 @@ let userProfile = {} ;
 
 if(checkStorage()) userProfile = await api.getUserProfile(storage.getLoginToken());
 
-// todo: store the login token in the Redux store ?
 // Definition of the default state
 const initialState = {
     connected: checkStorage(),
-    log: "Initialized, user is logged out",
+    loginToken: "",
 
     userFirstName: checkStorage() ? userProfile.firstName : " ",
     userLastName: checkStorage() ? userProfile.lastName : " "
 }
 
-
-// Creation of the reducer and its actions
 export const logstatus = createSlice({
     name: "logstatus",
     initialState,
 
-    // Creation of the actions, they will modify the state
+    // Creation of the reducer and the actions, they will modify the state
     reducers: {
         login: (state, action) => {
             state.connected = true;
-            state.log = "User is logged in";
+            state.loginToken = action.payload; //todo: this is stored but never use
 
-            // Get user information from action's payload
-            userProfile = action.payload;
-            
-            state.userFirstName = userProfile.firstName; 
-            state.userLastName = userProfile.lastName; 
-
+            // Informations that need to be persistents are also going to the localStorage
+            storage.storeLoginToken(action.payload);
             storage.setConnected("true");
         },
 
         logout: (state, action) => {
             state.connected = false;
-            state.log = "User is logged out"
-            state.userFirstName = "lolol"; 
+            state.loginToken = ""; //todo: this is stored but never use
 
+            // Informations that need to be persistents are also going to the localStorage
+            storage.clearLoginToken();
             storage.setConnected("false");
+        },
 
-            //console.log(state.log, action)
+        setFirstName: (state, action) => {
+            state.userFirstName = JSON.parse(action.payload);
+            console.log("Setting user first name with :", JSON.parse(action.payload))
+        },
+        
+        setLastName: (state, action) => {
+            state.userLastName = action.payload;
+            console.log("Setting user last name with :", action.payload)
         }
     }
 })
 
 // Export all actions
-export const {login, logout} = logstatus.actions;
+export const {login, logout, setFirstName, setLastName} = logstatus.actions;
 
 // Export reducer
 export default logstatus.reducer;

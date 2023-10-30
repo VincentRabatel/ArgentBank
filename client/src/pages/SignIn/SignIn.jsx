@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router';
 
 // React Redux
 import { useDispatch } from "react-redux";
-import { login } from "../../features/logstatus";
+import { login, setFirstName, setLastName } from "../../features/logstatus";
 
 import * as api from "../../services/api.js"
 import * as storage from "../../services/storage.js"
@@ -21,24 +21,26 @@ function SignIn() {
     async function handleLogin(event) {
         event.preventDefault();
 
-        // Get ths login attempt informations from the form
+        // Get informations from the form to try login
         const userInfos = {
             "email": document.querySelector('input[name="username"]').value,
             "password": document.querySelector('input[name="password"]').value
         }
 
-        // Post login attempt infortmations to the server
+        // Post informations from the form to the server
         const loginInfo = await api.postLogin(userInfos);
         
         switch(loginInfo.status){
             // STATUS == Connected
             case 200 :
-                storage.storeLoginToken(loginInfo.token);
+                // Dispatch the login action with the login token to be stored
+                dispatch(login(loginInfo.token));
                 
+                // Get the user profile and dispatch its name to be stored
                 const userProfile = await api.getUserProfile(loginInfo.token);
-
-                // We need to pass a string as tha action's payload
-                dispatch(login(JSON.stringify(userProfile)));
+                
+                dispatch(setFirstName(JSON.stringify(userProfile.firstName)));
+                dispatch(setLastName(userProfile.lastName));
 
                 navigate("/user/test");
             break;
