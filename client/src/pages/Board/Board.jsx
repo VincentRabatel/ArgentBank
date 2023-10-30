@@ -2,14 +2,17 @@ import './Board.css';
 
 import { Fragment, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 // Components
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import Account from '../../components/Account/Account';
 
+import * as api from '../../services/api.js';
 import * as paths from '../../services/paths.js';
+import * as storage from '../../services/storage.js';
+import { setUserName } from "../../features/user";
 
 // Create objects to configure Features
 const accountA = {
@@ -33,6 +36,7 @@ const accountC = {
 
 function Board() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const user = useSelector(state => state.user);
 
     // Redirect to sign in page if user isn't connected 
@@ -45,15 +49,48 @@ function Board() {
     const [editing, setEditing] = useState(false);
 
     function handleEdit(event){
+        event.preventDefault();
+
         if (editing) setEditing(false)
         else setEditing(true)
     }
 
-    function handleSave(event){
+    async function handleSave(event){
+        event.preventDefault();
+
+        // Get the new User Name from the form
+        const newUserName = document.querySelector('input[name="username"]').value
+
+        // Send the new User Name to the API
+        const setUserNameResponse = await api.setUserName(storage.getLoginToken(), newUserName)
+
+        switch(setUserNameResponse.status){
+            // STATUS == User profile retrieved successully
+            case 200 :
+                // Dispatch the new username
+                dispatch(setUserName(newUserName));
+            break;
+        
+            // STATUS == Invalid Fields
+            case 400 :
+                window.alert("Invalid Fields");
+            break;
+            
+            // STATUS == Internal Server Error
+            case 500 :
+                window.alert("Internal Server Error");
+            break;
+
+            default:
+                window.alert("Something Wrong Happened");
+        }
+
         setEditing(false)
     }
 
-    function handleCancel(){
+    function handleCancel(event){
+        event.preventDefault();
+
         setEditing(false)
     }
 
@@ -71,7 +108,11 @@ function Board() {
                             <form>
                                 <div className="input-wrapper">
                                     <label className="edit-label" htmlFor="username">User name:</label>
-                                    <input type="text" id="username" name="username" />
+                                    <input 
+                                        placeholder="..."
+                                        type="text"
+                                        id="username"
+                                        name="username" />
                                 </div>
     
                                 <div className="input-wrapper">

@@ -62,19 +62,19 @@ export const user = createSlice({
         },
 
         setFirstName: (state, action) => {
-            console.log("Setting user first name with :", action.payload)
+            //console.log("Setting user first name with :", action.payload)
             
             state.userFirstName = action.payload;
         },
         
         setLastName: (state, action) => {
-            console.log("Setting user last name with :", action.payload)
+            //console.log("Setting user last name with :", action.payload)
             
             state.userLastName = action.payload;
         },
         
         setUserName: (state, action) => {
-            console.log("Setting username with :", action.payload)
+            //console.log("Setting username with :", action.payload)
             
             state.userName = action.payload;
         }

@@ -47,6 +47,22 @@ export async function getUserProfile(token){
         userProfileData.body.updatedAt,
         userProfileData.body.userName
     );
-        
+
     return userProfile;
+}
+
+// todo: add error managment
+export async function setUserName(token, userName){
+	console.trace("API : Setting username with " + userName + "...");
+     
+    const setUserNameResponse = await fetch("http://localhost:3001/api/v1/user/profile", {
+		method: 'PUT',
+		headers: {
+			'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({ userName: userName })
+	});
+
+    return setUserNameResponse;
 }
