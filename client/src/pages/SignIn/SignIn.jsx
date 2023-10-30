@@ -41,7 +41,7 @@ function SignIn() {
                 dispatch(setFirstName(userProfile.firstName));
                 dispatch(setLastName(userProfile.lastName));
 
-                navigate("/user");
+                navigate("/board");
             break;
         
             // STATUS == Invalid Fields

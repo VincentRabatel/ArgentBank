@@ -1,4 +1,4 @@
-import './User.css';
+import './Board.css';
 
 import { Fragment, useEffect } from 'react';
 import { useNavigate } from 'react-router';
@@ -29,11 +29,11 @@ const accountC = {
 }
 
 
-function User() {
+function Board() {
     const navigate = useNavigate();
     const user = useSelector(state => state.user);
 
-    // Redirect to SignIN page if user isn't connected 
+    // Redirect to sign in page if user isn't connected 
     useEffect(() => {
         if (!user.connected){
          navigate("/signin")   
@@ -76,4 +76,4 @@ function User() {
     )
 }
 
-export default User;
+export default Board;

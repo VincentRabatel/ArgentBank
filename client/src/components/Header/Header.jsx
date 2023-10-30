@@ -35,7 +35,7 @@ function Header() {
     function onClickUserName(event) {
         event.preventDefault();
 
-        navigate("/user");
+        navigate("/board");
     }
 
     return (
