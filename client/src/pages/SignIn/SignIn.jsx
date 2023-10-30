@@ -9,6 +9,7 @@ import { login, setFirstName, setLastName } from "../../features/user";
 
 import * as api from "../../services/api.js"
 import * as paths from "../../services/paths.js"
+
 // Components
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
@@ -41,7 +42,7 @@ function SignIn() {
                 dispatch(setFirstName(userProfile.firstName));
                 dispatch(setLastName(userProfile.lastName));
 
-                navigate("/board");
+                navigate(paths.board);
             break;
         
             // STATUS == Invalid Fields

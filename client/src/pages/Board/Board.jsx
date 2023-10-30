@@ -1,6 +1,6 @@
 import './Board.css';
 
-import { Fragment, useEffect } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
 
@@ -42,6 +42,21 @@ function Board() {
         }
     },[])
 
+    const [editing, setEditing] = useState(false);
+
+    function handleEdit(event){
+        if (editing) setEditing(false)
+        else setEditing(true)
+    }
+
+    function handleSave(event){
+        setEditing(false)
+    }
+
+    function handleCancel(){
+        setEditing(false)
+    }
+
     return (
         <Fragment>
             <Header />
@@ -51,11 +66,55 @@ function Board() {
                     {`${user.userFirstName} ${user.userLastName}!`}
                     </h1>
 
-                    {/* todo: create a component for this button */}
-                    <button className="edit-button">Edit Name</button>
+                    {editing ? 
+                        <section className='edit-content'>
+                            <form>
+                                <div className="input-wrapper">
+                                    <label className="edit-label" htmlFor="username">User name:</label>
+                                    <input type="text" id="username" name="username" />
+                                </div>
+    
+                                <div className="input-wrapper">
+                                    <label className="edit-label" htmlFor="firstName">First name:</label>
+                                    <input type="firstName" id="firstName" name="firstName" />
+                                </div>
+    
+                                <div className="input-wrapper">
+                                    <label className="edit-label" htmlFor="lastName">Last name:</label>
+                                    <input type="lastName" id="lastName" name="lastName" />
+                                </div>
+    
+                                <div className="edit-buttons-container">
+                                    <button 
+                                        className="edit-button"
+                                        onClick={event => handleSave(event)}>
+                                        Save
+                                    </button>
+        
+                                    <button 
+                                        className="edit-button"
+                                        onClick={event => handleCancel(event)}>
+                                        Cancel
+                                    </button>
+                                </div>
+                            </form>
+                        </section>         
+                        
+                        :
+
+                        // todo: create a component for this button ?
+                        <button 
+                            className="edit-button"
+                            onClick={event => handleEdit(event)}>
+                            Edit Name
+                        </button>
+                    }
+
                 </div>
 
                 <h2 className="sr-only">Accounts</h2>
+
+
 
                 <Account
                     title={accountA.title}
