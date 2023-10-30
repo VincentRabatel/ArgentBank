@@ -41,7 +41,7 @@ function SignIn() {
                 dispatch(setFirstName(userProfile.firstName));
                 dispatch(setLastName(userProfile.lastName));
 
-                navigate("/user/test");
+                navigate("/user");
             break;
         
             // STATUS == Invalid Fields
@@ -85,8 +85,7 @@ function SignIn() {
 
                         <button 
                             className="sign-in-button"
-                            onClick={event => handleLogin(event)}
-                            href="/user/test">
+                            onClick={event => handleLogin(event)}>
                             Sign In
                         </button>
 

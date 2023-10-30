@@ -1,6 +1,7 @@
 import './User.css';
 
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
+import { useNavigate } from 'react-router';
 import { useSelector } from "react-redux";
 
 // Components
@@ -27,8 +28,17 @@ const accountC = {
     description: "Current Balance"
 }
 
+
 function User() {
+    const navigate = useNavigate();
     const user = useSelector(state => state.user);
+
+    // Redirect to SignIN page if user isn't connected 
+    useEffect(() => {
+        if (!user.connected){
+         navigate("/signin")   
+        }
+    },[])
 
     return (
         <Fragment>

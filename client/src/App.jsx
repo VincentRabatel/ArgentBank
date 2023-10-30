@@ -11,7 +11,7 @@ function App() {
         <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/signin" element={<SignIn />} />
-            <Route path="/user/:id" element={<User />} />
+            <Route path="/user" element={<User />} />
 
             {/* There isn't any error page yet so we redirect back to home page */}
             <Route path="/*" element={<Home />} />

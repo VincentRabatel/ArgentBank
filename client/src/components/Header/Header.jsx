@@ -35,7 +35,7 @@ function Header() {
     function onClickUserName(event) {
         event.preventDefault();
 
-        navigate("/user/test");
+        navigate("/user");
     }
 
     return (
