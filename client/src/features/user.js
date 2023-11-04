@@ -1,4 +1,3 @@
-// Import of createSlice, the modern way to create a reducer and its actions
 import { createSlice } from "@reduxjs/toolkit";
 
 import * as api from "../services/api"
@@ -22,7 +21,6 @@ const checkStorage = () => {
     }
 }
 
-
 let userProfile = {} ;
 
 if(checkStorage()) userProfile = await api.getUserProfile(storage.getLoginToken());
@@ -30,7 +28,7 @@ if(checkStorage()) userProfile = await api.getUserProfile(storage.getLoginToken(
 // Definition of the default state
 const initialState = {
     connected: checkStorage(),
-    loginToken: "",
+    loginToken: "", //todo: this is stored but never use
 
     userFirstName: checkStorage() ? userProfile.firstName : " ",
     userLastName: checkStorage() ? userProfile.lastName : " ",
@@ -79,7 +77,7 @@ export const user = createSlice({
             state.userName = action.payload;
         }
     }
-})
+})  
 
 // Export all actions
 export const {login, logout, setFirstName, setLastName, setUserName} = user.actions;
