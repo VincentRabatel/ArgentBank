@@ -3,7 +3,7 @@ import { UserProfile } from "../data/userProfile";
 
 // todo: add error managment
 export async function postLogin(userInfos) {
-    console.trace("API : Trying to log in...");
+    console.trace("DEPRECATED API CALL: Trying to log in...");
     
     const loginResponse = await fetch("http://localhost:3001/api/v1/user/login", {
         method: 'POST',
@@ -16,18 +16,18 @@ export async function postLogin(userInfos) {
     const loginData = await loginResponse.json();
     
     const token = loginData.status === 200 ? loginData.body.token : ""
-
+    
     const loginInfo = new Login(
         loginData.status,
         token
     )
-
+        
     return loginInfo;
 }
-
+     
 // todo: add error managment
 export async function getUserProfile(token){
-	console.trace("API : Getting user profile...");
+    console.trace("DEPRECATED API CALL: Trying to log in...");
      
     const userProfileResponse = await fetch("http://localhost:3001/api/v1/user/profile", {
 		method: 'POST',
@@ -53,7 +53,7 @@ export async function getUserProfile(token){
 
 // todo: add error managment
 export async function setUserName(token, userName){
-	console.trace("API : Setting username with " + userName + "...");
+	console.trace("DEPRECATED API CALL: Setting username with " + userName + "...");
      
     const setUserNameResponse = await fetch("http://localhost:3001/api/v1/user/profile", {
 		method: 'PUT',

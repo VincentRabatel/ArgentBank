@@ -7,15 +7,15 @@ import { useNavigate } from 'react-router';
 // React Redux
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { logout } from '../../features/user';
+import { setLoginStatus, setLoginToken, logout, setFirstName, setLastName, setUserName} from '../../features/user';
 
 import * as paths from '../../services/paths';
 
 function Header() {
+    const user = useSelector(state => state.user)
+    
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
-    const user = useSelector(state => state.user)
 
     function onClickHome(event) {
         event.preventDefault();
@@ -26,9 +26,19 @@ function Header() {
     function onClickSign(event) {
         event.preventDefault();
 
-        if (user.connected) {
-            dispatch(logout());
+        if (user.loginStatus) {
+            // will be removed after redux-persist implementation
+            dispatch(logout())
+
+            dispatch(setLoginStatus(false))
+            dispatch(setLoginToken(undefined))
+
+            dispatch(setFirstName(undefined))
+            dispatch(setLastName(undefined))
+            dispatch(setUserName(undefined))
+
             navigate(paths.home)
+
         } else {
             navigate(paths.signin)
         }
@@ -55,7 +65,7 @@ function Header() {
 
                 {
                     // Change the header content depending if an user is connected
-                    user.connected ?
+                    user.loginStatus ?
 
                     <div className="main-nav-signin">
                         <div className="main-nav-item" onClick={event => onClickUserName(event)}>

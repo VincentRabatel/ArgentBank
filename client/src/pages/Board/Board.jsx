@@ -4,15 +4,14 @@ import { Fragment, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 
+import { fetchUserName } from "../../features/user";
+
+import * as paths from '../../services/paths.js';
+
 // Components
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import Account from '../../components/Account/Account';
-
-import * as api from '../../services/api.js';
-import * as paths from '../../services/paths.js';
-import * as storage from '../../services/storage.js';
-import { setUserName } from "../../features/user";
 
 // Create objects to configure Features
 const accountA = {
@@ -33,21 +32,22 @@ const accountC = {
     description: "Current Balance"
 }
 
-
 function Board() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const user = useSelector(state => state.user);
+    
+    // Username editing button state
+    const [editing, setEditing] = useState(false);
 
     // Redirect to sign in page if user isn't connected 
     useEffect(() => {
-        if (!user.connected){
-         navigate(paths.signin)   
+        if (!user.loginStatus){
+            navigate(paths.board)
         }
-    },[])
+    },[user, navigate])
 
-    const [editing, setEditing] = useState(false);
-
+    // Function to open or close Edit Mode
     function handleEdit(event){
         event.preventDefault();
 
@@ -55,39 +55,23 @@ function Board() {
         else setEditing(true)
     }
 
+    // Function to save a new username
     async function handleSave(event){
         event.preventDefault();
 
         // Get the new User Name from the form
         const newUserName = document.querySelector('input[name="username"]').value
 
-        // Send the new User Name to the API
-        const setUserNameResponse = await api.setUserName(storage.getLoginToken(), newUserName)
-
-        switch(setUserNameResponse.status){
-            // STATUS == User profile retrieved successully
-            case 200 :
-                // Dispatch the new username
-                dispatch(setUserName(newUserName));
-            break;
-        
-            // STATUS == Invalid Fields
-            case 400 :
-                window.alert("Invalid Fields");
-            break;
-            
-            // STATUS == Internal Server Error
-            case 500 :
-                window.alert("Internal Server Error");
-            break;
-
-            default:
-                window.alert("Something Wrong Happened");
+        try {
+            dispatch(fetchUserName(user.loginToken, newUserName));
+        } catch (error) {
+            console.log(error)
         }
 
         setEditing(false)
     }
 
+    // Function to cancel the edition
     function handleCancel(event){
         event.preventDefault();
 

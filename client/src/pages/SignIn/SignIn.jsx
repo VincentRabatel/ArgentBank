@@ -1,13 +1,11 @@
 import './SignIn.css';
 
-// React Router
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
+import { useSelector, useDispatch } from "react-redux"
 
-// React Redux
-import { useDispatch } from "react-redux";
-import { login, setFirstName, setLastName, setUserName } from "../../features/user";
+import { fetchLogin } from '../../features/user';
 
-import * as api from "../../services/api.js"
 import * as paths from "../../services/paths.js"
 
 // Components
@@ -17,6 +15,14 @@ import Footer from '../../components/Footer/Footer';
 function SignIn() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const user = useSelector(state => state.user);
+
+    // Redirect to the user's board if the user is connected 
+    useEffect(() => {
+        if (user.loginStatus){
+            navigate(paths.board)
+        }
+    },[user, navigate])
 
     async function handleLogin(event) {
         event.preventDefault();
@@ -27,37 +33,10 @@ function SignIn() {
             "password": document.querySelector('input[name="password"]').value
         }
 
-        // Post informations from the form to the server
-        const loginInfo = await api.postLogin(userInfos);
-        
-        switch(loginInfo.status){
-            // STATUS == Connected
-            case 200 :
-                // Dispatch the login action with the login token to be stored
-                dispatch(login(loginInfo.token));
-                
-                // Get the user profile and dispatch its name to be stored
-                const userProfile = await api.getUserProfile(loginInfo.token);
-                
-                dispatch(setFirstName(userProfile.firstName));
-                dispatch(setLastName(userProfile.lastName));
-                dispatch(setUserName(userProfile.userName));
-
-                navigate(paths.board);
-            break;
-        
-            // STATUS == Invalid Fields
-            case 400 :
-                window.alert("Invalid Fields");
-            break;
-            
-            // STATUS == Internal Server Error
-            case 500 :
-                window.alert("Internal Server Error");
-            break;
-
-            default:
-                window.alert("Something Wrong Happened");
+        try {
+            dispatch(fetchLogin(userInfos));
+        } catch (error) {
+            console.log("YES", error)
         }
     }
 
