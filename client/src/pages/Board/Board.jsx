@@ -4,7 +4,7 @@ import { Fragment, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { fetchUserName } from "../../features/user";
+import { fetchUserName, fetchUserProfile } from "../../features/user";
 
 import * as paths from '../../services/paths.js';
 
@@ -35,18 +35,26 @@ const accountC = {
 function Board() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    const login = useSelector(state => state.login)
     const user = useSelector(state => state.user);
+
+    
+    useEffect(() => {
+        // Fetch and dispatch User Profile
+        if (login.loginStatus){
+            dispatch(fetchUserProfile(login.loginToken))
+        
+        // Redirect to Sign In page if user isn't connected
+        } else {
+            navigate(paths.signin)
+        }
+    },[login, navigate, dispatch])
+
     
     // Username editing button state
     const [editing, setEditing] = useState(false);
-
-    // Redirect to sign in page if user isn't connected 
-    useEffect(() => {
-        if (!user.loginStatus){
-            navigate(paths.board)
-        }
-    },[user, navigate])
-
+    
     // Function to open or close Edit Mode
     function handleEdit(event){
         event.preventDefault();
@@ -63,7 +71,7 @@ function Board() {
         const newUserName = document.querySelector('input[name="username"]').value
 
         try {
-            dispatch(fetchUserName(user.loginToken, newUserName));
+            dispatch(fetchUserName(login.loginToken, newUserName));
         } catch (error) {
             console.log(error)
         }

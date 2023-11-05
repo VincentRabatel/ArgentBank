@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useSelector, useDispatch } from "react-redux"
 
-import { fetchLogin } from '../../features/user';
+import { fetchLogin } from '../../features/login';
 
 import * as paths from "../../services/paths.js"
 
@@ -15,14 +15,14 @@ import Footer from '../../components/Footer/Footer';
 function SignIn() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const user = useSelector(state => state.user);
+    const login = useSelector(state => state.login)
 
     // Redirect to the user's board if the user is connected 
     useEffect(() => {
-        if (user.loginStatus){
+        if (login.loginStatus){
             navigate(paths.board)
         }
-    },[user, navigate])
+    },[login.loginStatus, navigate])
 
     async function handleLogin(event) {
         event.preventDefault();

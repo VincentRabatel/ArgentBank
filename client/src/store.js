@@ -12,7 +12,8 @@ import thunk from "redux-thunk";
 
 // Import of our reducers,
 // they initialize the state and then allow us to modify the state  
-import unpersistedUser from "./features/user"
+import unpersistedLogin from "./features/login"
+import user from "./features/user"
 
 const persistConfig = {
     key: 'root',
@@ -20,12 +21,14 @@ const persistConfig = {
 };
 
 // Transformation of the "user" reducer into a persited one
-const user = persistReducer(persistConfig, unpersistedUser);
+const login = persistReducer(persistConfig, unpersistedLogin);
+//const user = persistReducer(persistConfig, unpersistedUser);
 
 // Creation of our store
 export const store = configureStore({
     // We pass here our reducers 
     reducer: {
+        login,
         user
     },
     

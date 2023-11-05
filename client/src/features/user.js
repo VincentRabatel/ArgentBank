@@ -4,15 +4,10 @@ import { UserProfile } from "../data/userProfile";
 
 // Definition of the default state
 const initialState = {
-    connected: undefined,
-    
     fetchData: undefined,
     fetchError: false,
     // todo: add loader before to start fetching data
     fetchLoading: false,
-    
-    loginStatus: false,
-    loginToken: "",
 
     userFirstName: undefined,
     userLastName: undefined,
@@ -41,14 +36,6 @@ export const user = createSlice({
             state.fetchLoading = false;
         },
 
-        // Logging actions
-        setLoginStatus: (state, action) => {
-            state.loginStatus = action.payload;
-        },
-        setLoginToken: (state, action) => {
-            state.loginToken = action.payload;
-        },
-
         // User profile actions
         setFirstName: (state, action) => {
             state.userFirstName = action.payload;
@@ -61,45 +48,6 @@ export const user = createSlice({
         },
     }
 })  
-
-
-
-export function fetchLogin(userInfos) {
-
-    return async function(dispatch, getState) {
-
-        // todo: add loader before to start fetching data
-        //dispatch(addLoader())
-
-        try {
-            const response = await fetch("http://localhost:3001/api/v1/user/login", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify(userInfos)
-            });
-
-            if(!response.ok){
-                throw new Error(JSON.stringify(response.status))
-            }
-            
-            const data = await response.json()
-
-            dispatch(addData(data))
-    
-            dispatch(setLoginStatus(true))
-            dispatch(setLoginToken(data.body.token))
-    
-            dispatch(fetchUserProfile(data.body.token))
-        } 
-        
-        catch (error) {
-            // todo: do something with the error
-            dispatch(addError(JSON.parse(error.message)))
-        }
-    }
-}
 
 export function fetchUserProfile(loginToken){
 
@@ -181,11 +129,6 @@ export const {
     addData, 
     addError, 
     addLoader, 
-
-    // Logging actions
-    setLoginStatus, 
-    setLoginToken, 
-    logout, 
 
     // User profile actions
     setFirstName, 

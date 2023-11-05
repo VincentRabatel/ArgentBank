@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 // React Redux Toolkit
-import { store } from "./store.jsx"
+import { store } from "./store.js"
 import { Provider } from "react-redux" 
 
 // React Rooter

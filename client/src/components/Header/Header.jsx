@@ -7,11 +7,13 @@ import { useNavigate } from 'react-router';
 // React Redux
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { setLoginStatus, setLoginToken, setFirstName, setLastName, setUserName} from '../../features/user';
+import { setLoginStatus, setLoginToken} from '../../features/login';
+import { setFirstName, setLastName, setUserName} from '../../features/user';
 
 import * as paths from '../../services/paths';
 
 function Header() {
+    const login = useSelector(state => state.login)
     const user = useSelector(state => state.user)
     
     const navigate = useNavigate();
@@ -26,7 +28,7 @@ function Header() {
     function onClickSign(event) {
         event.preventDefault();
 
-        if (user.loginStatus) {
+        if (login.loginStatus) {
             dispatch(setLoginStatus(false))
             dispatch(setLoginToken(undefined))
 
@@ -62,7 +64,7 @@ function Header() {
 
                 {
                     // Change the header content depending if an user is connected
-                    user.loginStatus ?
+                    login.loginStatus ?
 
                     <div className="main-nav-signin">
                         <div className="main-nav-item" onClick={event => onClickUserName(event)}>
