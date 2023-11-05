@@ -26,7 +26,7 @@ export const login = createSlice({
             state.loading = action.payload;
         },
         setError: (state, action) => {
-            console.log("Error :", action.payload)
+            console.error("Error :", action.payload)
             state.error = action.payload;
         },
 
@@ -70,11 +70,11 @@ export function fetchLogin(userInfos) {
 
                     // This is done manually for other cases
                     case 404:
-                        errorMessage = { status: response.status, message: "Error: Not found" };
+                        errorMessage = { status: response.status, message: "Error 404: Not found" };
                     break;
 
                     case 500:
-                        errorMessage = { status: response.status, message: "Error: Internal Server Error" };
+                        errorMessage = { status: response.status, message: "Error 500: Internal Server Error" };
                     break;
 
                     default :

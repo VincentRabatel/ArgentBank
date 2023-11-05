@@ -48,3 +48,8 @@ even if this is strange */
     padding: 5px;
     font-size: 1.2rem;
 }
+
+.login-error {
+    color: red;
+    font-weight: bold;
+}

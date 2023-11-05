@@ -15,14 +15,17 @@ import thunk from "redux-thunk";
 import unpersistedLogin from "./features/login"
 import user from "./features/user"
 
-const persistConfig = {
-    key: 'root',
-    storage
-};
+// Transformation of the "unpersistedLogin" reducer into a persited one
+const login = persistReducer(
+    {
+        key: 'login',
+        storage: storage,
+        blacklist: ["loading", "error"]
+    },
+    
+    unpersistedLogin
+);
 
-// Transformation of the "user" reducer into a persited one
-const login = persistReducer(persistConfig, unpersistedLogin);
-//const user = persistReducer(persistConfig, unpersistedUser);
 
 // Creation of our store
 export const store = configureStore({
@@ -31,8 +34,31 @@ export const store = configureStore({
         login,
         user
     },
-    
-    //devTools: process.env.NODE_ENV !== 'production',
+
     //middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger)
     middleware: [logger, thunk]
 })
+
+/*
+
+export const ConfigureStore = () => {
+    const config = {
+        key: 'root',
+        storage: storage,
+        blacklist: ['user.error']
+    }
+
+    const store = createStore(
+        persistCombineReducers(config, {
+            settings,
+            themeMode,
+            articles
+        }),
+        applyMiddleware(thunk, logger)
+    );
+
+    const persistor = persistStore(store);
+    return {persistor, store};
+}
+
+*/

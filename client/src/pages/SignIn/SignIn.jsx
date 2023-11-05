@@ -71,6 +71,12 @@ function SignIn() {
                         </button>
 
                     </form>
+
+                    {login.error &&
+                        <p className="login-error">
+                            {login.error.message}
+                        </p>
+                    }
                 </section>
             </main>
             <Footer />
