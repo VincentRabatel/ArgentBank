@@ -32,9 +32,9 @@ function Header() {
             dispatch(setLoginStatus(false))
             dispatch(setLoginToken(undefined))
 
-            dispatch(setFirstName(undefined))
-            dispatch(setLastName(undefined))
-            dispatch(setUserName(undefined))
+            dispatch(setFirstName(""))
+            dispatch(setLastName(""))
+            dispatch(setUserName(""))
 
             navigate(paths.home)
 

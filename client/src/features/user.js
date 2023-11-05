@@ -9,9 +9,9 @@ const initialState = {
     // todo: add loader before to start fetching data
     fetchLoading: false,
 
-    userFirstName: undefined,
-    userLastName: undefined,
-    userName: undefined
+    userFirstName: "",
+    userLastName: "",
+    userName: ""
 }
 
 export const user = createSlice({
