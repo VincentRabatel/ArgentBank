@@ -2,34 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { UserProfile } from "../data/userProfile";
 
-import * as api from "../services/api";
-import * as storage from "../services/storage";
-
-// todo: it is possible for the connected status to persist withour localStorage ?
-const checkStorage = () => {
-    const storageConnected = storage.getConnected();
-
-    // If there is nothing in the localStorage (null)
-    if (!storageConnected) {
-        storage.setConnected("false");
-        return false;
-
-    // else we init the state according the saved state
-    } else {
-        if (storageConnected === "true") {
-            return true;
-        }
-        else return false;
-    }
-}
-
-let userProfile = {};
-
-if(checkStorage()) userProfile = await api.getUserProfile(storage.getLoginToken());
-
 // Definition of the default state
 const initialState = {
-    connected: checkStorage(),
+    connected: undefined,
     
     fetchData: undefined,
     fetchError: false,
@@ -37,11 +12,11 @@ const initialState = {
     fetchLoading: false,
     
     loginStatus: false,
-    loginToken: "", //todo: this is stored but never use
+    loginToken: "",
 
-    userFirstName: checkStorage() ? userProfile.firstName : undefined,
-    userLastName: checkStorage() ? userProfile.lastName : undefined,
-    userName: checkStorage() ? userProfile.userName : undefined
+    userFirstName: undefined,
+    userLastName: undefined,
+    userName: undefined
 }
 
 export const user = createSlice({
@@ -69,23 +44,9 @@ export const user = createSlice({
         // Logging actions
         setLoginStatus: (state, action) => {
             state.loginStatus = action.payload;
-
-            // Informations that need to be persistents are also going to the localStorage
-            // will be removed after redux-persist implementation
-            storage.setConnected(JSON.stringify(action.payload));
         },
         setLoginToken: (state, action) => {
             state.loginToken = action.payload;
-
-            // Informations that need to be persistents are also going to the localStorage
-            // will be removed after redux-persist implementation
-            storage.storeLoginToken(action.payload);
-        },
-        logout: (state, action) => {
-            // Informations that need to be persistents are also going to the localStorage
-            // will be removed after redux-persist implementation
-            storage.clearLoginToken();
-            storage.setConnected("false");
         },
 
         // User profile actions

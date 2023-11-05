@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router';
 // React Redux
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { setLoginStatus, setLoginToken, logout, setFirstName, setLastName, setUserName} from '../../features/user';
+import { setLoginStatus, setLoginToken, setFirstName, setLastName, setUserName} from '../../features/user';
 
 import * as paths from '../../services/paths';
 
@@ -27,9 +27,6 @@ function Header() {
         event.preventDefault();
 
         if (user.loginStatus) {
-            // will be removed after redux-persist implementation
-            dispatch(logout())
-
             dispatch(setLoginStatus(false))
             dispatch(setLoginToken(undefined))
 
