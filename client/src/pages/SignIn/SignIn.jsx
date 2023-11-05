@@ -1,16 +1,18 @@
-import './SignIn.css';
+import "./SignIn.css";
 
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router';
+import spinner from "../../assets/spinner.svg"
+
+import { useEffect } from "react";
+import { useNavigate } from "react-router";
 import { useSelector, useDispatch } from "react-redux"
 
-import { fetchLogin } from '../../features/login';
+import { fetchLogin } from "../../features/login";
 
 import * as paths from "../../services/paths.js"
 
 // Components
-import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footer';
+import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
 
 function SignIn() {
     const navigate = useNavigate();
@@ -22,7 +24,7 @@ function SignIn() {
         if (login.loginStatus){
             navigate(paths.board)
         }
-    },[login.loginStatus, navigate])
+    },[login, navigate])
 
     async function handleLogin(event) {
         event.preventDefault();
@@ -33,17 +35,20 @@ function SignIn() {
             "password": document.querySelector('input[name="password"]').value
         }
 
-        try {
-            dispatch(fetchLogin(userInfos));
-        } catch (error) {
-            console.log("YES", error)
-        }
+        dispatch(fetchLogin(userInfos));
     }
-
+    
     return (
         <>
             <Header />
-            <main className='main bg-dark'>
+            <main className="main bg-dark sign-in-container">
+
+                {login.loading &&
+                    <div className="loading">
+                        <img className="loading-spinner" src={spinner} alt="Loading spinner"></img>
+                    </div>
+                }
+
                 <section className="sign-in-content">
                     <i className="fa fa-user-circle sign-in-icon"></i>
                     <h1>Sign In</h1>

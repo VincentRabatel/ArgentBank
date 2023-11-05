@@ -2,10 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 // Definition of the default state
 const initialState = {
-    // fetching: false,
     loading: false,
     error: undefined,
-    // todo: add loader before to start fetching data
     
     loginStatus: false,
     loginToken: ""
@@ -18,10 +16,6 @@ export const login = createSlice({
     // Creation of the reducer and the actions, they will modify the state
     reducers: {
         // Fetching actions
-        // setFetching: (state, action) => {
-        //     state.fetching = action.payload;
-        // },
-        // todo: add loader before to start fetching data
         setLoading: (state, action) => {
             state.loading = action.payload;
         },
@@ -44,7 +38,6 @@ export function fetchLogin(userInfos) {
 
     return async function(dispatch, getState) {
 
-        // todo: add loader before to start fetching data
         dispatch(setLoading(true))
 
         try {
@@ -87,13 +80,13 @@ export function fetchLogin(userInfos) {
             const data = await response.json()
             
             dispatch(setLoading(false))
+            dispatch(setError(undefined))
             
             dispatch(setLoginStatus(true))
             dispatch(setLoginToken(data.body.token))
         } 
         
         catch (error) {
-            // todo: do something with the error
             dispatch(setLoading(false))
             dispatch(setError(JSON.parse(error.message)))
         }
@@ -103,7 +96,6 @@ export function fetchLogin(userInfos) {
 // Export all actions
 export const { 
     // Fetching actions
-    // setFetching, 
     setLoading, 
     setError, 
 
