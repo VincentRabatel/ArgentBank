@@ -13,7 +13,7 @@ import thunk from "redux-thunk";
 // Import of our reducers,
 // they initialize the state and then allow us to modify the state  
 import unpersistedLogin from "./features/login"
-import user from "./features/user"
+import unpersistedUser from "./features/user"
 
 // Transformation of the "unpersistedLogin" reducer into a persited one
 const login = persistReducer(
@@ -24,6 +24,16 @@ const login = persistReducer(
     },
     
     unpersistedLogin
+);
+
+const user = persistReducer(
+    {
+        key: 'user',
+        storage: storage,
+        whitelist: ["userName"]
+    },
+    
+    unpersistedUser
 );
 
 
@@ -38,27 +48,3 @@ export const store = configureStore({
     //middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger)
     middleware: [logger, thunk]
 })
-
-/*
-
-export const ConfigureStore = () => {
-    const config = {
-        key: 'root',
-        storage: storage,
-        blacklist: ['user.error']
-    }
-
-    const store = createStore(
-        persistCombineReducers(config, {
-            settings,
-            themeMode,
-            articles
-        }),
-        applyMiddleware(thunk, logger)
-    );
-
-    const persistor = persistStore(store);
-    return {persistor, store};
-}
-
-*/
