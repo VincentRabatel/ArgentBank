@@ -1,18 +1,17 @@
 import "./SignIn.css";
 
-import spinner from "../../assets/spinner.svg"
-
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useSelector, useDispatch } from "react-redux"
 
 import { fetchLogin } from "../../features/login";
 
-import * as paths from "../../services/paths.js"
+import * as paths from "../../services/paths.js";
 
 // Components
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
+import Loader from "../../components/Loader/Loader";
 
 function SignIn() {
     const navigate = useNavigate();
@@ -44,9 +43,7 @@ function SignIn() {
             <main className="main bg-dark sign-in-container">
 
                 {login.loading &&
-                    <div className="loading">
-                        <img className="loading-spinner" src={spinner} alt="Loading spinner"></img>
-                    </div>
+                    <Loader />
                 }
 
                 <section className="sign-in-content">

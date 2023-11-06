@@ -1,3 +1,16 @@
+.sign-in-container {
+    position: relative;
+}
+
+.sign-in-content {
+    box-sizing: border-box;
+    background-color: white;
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 3rem;
+    padding: 2rem;
+}
+
 .sign-in-button {
     display: block;
     width: 100%;
@@ -10,17 +23,7 @@
     color: #fff;
 }
 
-.sign-in-content {
-    box-sizing: border-box;
-    background-color: white;
-    width: 300px;
-    margin: 0 auto;
-    margin-top: 3rem;
-    padding: 2rem;
-}
-
-/* Get rid this style to match the model,
-even if this is strange */
+/* Get rid this style to match the model, even if this is strange */
 .sign-in-icon {
     font-size: 5rem;
 }
@@ -52,25 +55,4 @@ even if this is strange */
 .login-error {
     color: red;
     font-weight: bold;
-}
-
-.sign-in-container {
-    position: relative;
-}
-
-.loading {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background: rgba(245, 230, 255, 0.3);
-}
-
-.loading-spinner {
-    width: 100px;
-    height: 100px;
 }
