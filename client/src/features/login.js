@@ -49,6 +49,7 @@ export function fetchLogin(userInfos) {
             body: JSON.stringify(userInfos)
             });
 
+            // Error management
             if(!response.ok){
 
                 let errorMessage;

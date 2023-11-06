@@ -4,11 +4,10 @@ import { UserProfile } from "../data/userProfile";
 
 // Definition of the default state
 const initialState = {
-    fetchData: undefined,
-    fetchError: false,
     // todo: add loader before to start fetching data
-    fetchLoading: false,
-
+    loading: false,
+    error: undefined,
+    
     userFirstName: "",
     userLastName: "",
     userName: ""
@@ -17,23 +16,16 @@ const initialState = {
 export const user = createSlice({
     name: "user",
     initialState,
-
+    
     // Creation of the reducer and the actions, they will modify the state
     reducers: {
         // Fetching actions
-        addData: (state, action) => {
-            state.fetchData = action.payload;
-            state.fetchLoading = false;
+        setLoading: (state, action) => {
+            state.loading = action.payload;
         },
-        // todo: add loader before to start fetching data
-        addLoader: (state, action) => {
-            state.fetchLoading = true;
-        },
-        addError: (state, action) => {
-            console.log("Error :", action.payload)
-
-            state.fetchError = true;
-            state.fetchLoading = false;
+        setError: (state, action) => {
+            console.error("Error :", action.payload)
+            state.error = action.payload;
         },
 
         // User profile actions
@@ -53,8 +45,7 @@ export function fetchUserProfile(loginToken){
 
     return async function(dispatch, getState) {
 
-        // todo: add loader before to start fetching data
-        //dispatch(addLoader())
+        // dispatch(setLoading(true))
 
         try {
             const response = await fetch("http://localhost:3001/api/v1/user/profile", {
@@ -64,8 +55,35 @@ export function fetchUserProfile(loginToken){
                 }
             });
 
+            // Error management
             if(!response.ok){
-                throw new Error(JSON.stringify(response.status))
+
+                let errorMessage;
+
+                // We setup the error message according to the structure { status: status, message: message }
+                switch (response.status) {
+                    // Not sure how we could end up here, but the endpoint exist
+                    case 400:
+                        errorMessage = { status: response.status, message: "Error 400: Invalid Fields" };
+                    break;
+
+                    case 401:
+                        errorMessage = { status: response.status, message: "Error 401: Unauthorized" };
+                    break;
+
+                    case 404:
+                        errorMessage = { status: response.status, message: "Error 404: Not found" };
+                    break;
+
+                    case 500:
+                        errorMessage = { status: response.status, message: "Error 500: Internal Server Error" };
+                    break;
+
+                    default :
+                        errorMessage = { status: response.status, message: "Error: Unknown" };
+                }
+
+                throw new Error(JSON.stringify(errorMessage))
             }
 
             const data = await response.json()
@@ -80,14 +98,17 @@ export function fetchUserProfile(loginToken){
                 data.body.userName
             );
             
+            // dispatch(setLoading(false))
+            dispatch(setError(undefined))
+
             dispatch(setFirstName(userProfile.firstName));
             dispatch(setLastName(userProfile.lastName));
             dispatch(setUserName(userProfile.userName));
         }
         
         catch (error) {
-            // todo: do something with the error
-            //dispatch(addError(JSON.parse(error.message)))
+            // dispatch(setLoading(false))
+            dispatch(setError(JSON.parse(error.message)))
         }
     }
 }
@@ -96,8 +117,7 @@ export function fetchUserName(token, userName){
 
     return async function(dispatch, getState) {
 
-        // todo: add loader before to start fetching data
-        //dispatch(addLoader())
+        // dispatch(setLoading(true))
 
         try {
             const response = await fetch("http://localhost:3001/api/v1/user/profile", {
@@ -109,16 +129,45 @@ export function fetchUserName(token, userName){
                 body: JSON.stringify({ userName: userName })
             });
             
+            // Error management
             if(!response.ok){
-                throw new Error(JSON.stringify(response.status))
+
+                let errorMessage;
+
+                // We setup the error message according to the structure { status: status, message: message }
+                switch (response.status) {
+                    case 400:
+                        errorMessage = { status: response.status, message: "Error 400: Invalid Fields" };
+                    break;
+
+                    case 401:
+                        errorMessage = { status: response.status, message: "Error 401: Unauthorized" };
+                    break;
+
+                    case 404:
+                        errorMessage = { status: response.status, message: "Error 404: Not found" };
+                    break;
+
+                    case 500:
+                        errorMessage = { status: response.status, message: "Error 500: Internal Server Error" };
+                    break;
+
+                    default :
+                        errorMessage = { status: response.status, message: "Error: Unknown" };
+                }
+
+                throw new Error(JSON.stringify(errorMessage))
             }
-            
+
+            // dispatch(setLoading(false))
+            dispatch(setError(undefined))
+
             dispatch(setUserName(userName));
         }
         
         catch (error) {
-            // todo: do something with the error
-            //dispatch(addError(JSON.parse(error.message)))
+            // dispatch(setLoading(false))
+            dispatch(setError(JSON.parse(error.message)))
         }
     }
 }
@@ -126,9 +175,8 @@ export function fetchUserName(token, userName){
 // Export all actions
 export const { 
     // Fetching actions
-    addData, 
-    addError, 
-    addLoader, 
+    setLoading, 
+    setError, 
 
     // User profile actions
     setFirstName, 
