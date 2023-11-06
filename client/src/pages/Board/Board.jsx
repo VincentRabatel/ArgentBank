@@ -12,6 +12,7 @@ import * as paths from '../../services/paths.js';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import Account from '../../components/Account/Account';
+import Loader from "../../components/Loader/Loader";
 
 // Create objects to configure Features
 const accountA = {
@@ -36,9 +37,8 @@ function Board() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const login = useSelector(state => state.login)
+    const login = useSelector(state => state.login);
     const user = useSelector(state => state.user);
-
     
     useEffect(() => {
         // Fetch and dispatch User Profile
@@ -90,7 +90,13 @@ function Board() {
         <Fragment>
             <Header />
             <main className="main bg-dark">
+
+                {user.loading &&
+                    <Loader />
+                }
+                
                 <div className="user-header">
+                    
                     <h1>Welcome back<br />
                     {`${user.userFirstName} ${user.userLastName}!`}
                     </h1>

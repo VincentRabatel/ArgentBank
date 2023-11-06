@@ -4,7 +4,6 @@ import { UserProfile } from "../data/userProfile";
 
 // Definition of the default state
 const initialState = {
-    // todo: add loader before to start fetching data
     loading: false,
     error: undefined,
     
@@ -24,7 +23,7 @@ export const user = createSlice({
             state.loading = action.payload;
         },
         setError: (state, action) => {
-            console.error("Error :", action.payload)
+            action.payload && console.error("Error :", action.payload)
             state.error = action.payload;
         },
 
@@ -43,9 +42,11 @@ export const user = createSlice({
 
 export function fetchUserProfile(loginToken){
 
+    console.trace("API fetching to get User's profile...");
+
     return async function(dispatch, getState) {
 
-        // dispatch(setLoading(true))
+        dispatch(setLoading(true))
 
         try {
             const response = await fetch("http://localhost:3001/api/v1/user/profile", {
@@ -87,7 +88,7 @@ export function fetchUserProfile(loginToken){
             }
 
             const data = await response.json()
-           
+
             const userProfile = new UserProfile(
                 data.body.createdAt,
                 data.body.email,
@@ -98,7 +99,7 @@ export function fetchUserProfile(loginToken){
                 data.body.userName
             );
             
-            // dispatch(setLoading(false))
+            dispatch(setLoading(false))
             dispatch(setError(undefined))
 
             dispatch(setFirstName(userProfile.firstName));
@@ -107,7 +108,7 @@ export function fetchUserProfile(loginToken){
         }
         
         catch (error) {
-            // dispatch(setLoading(false))
+            dispatch(setLoading(false))
             dispatch(setError(JSON.parse(error.message)))
         }
     }
@@ -115,9 +116,11 @@ export function fetchUserProfile(loginToken){
 
 export function fetchUserName(token, userName){
 
+    console.trace("API fetching to update User's username...");
+
     return async function(dispatch, getState) {
 
-        // dispatch(setLoading(true))
+        dispatch(setLoading(true))
 
         try {
             const response = await fetch("http://localhost:3001/api/v1/user/profile", {
@@ -159,14 +162,14 @@ export function fetchUserName(token, userName){
                 throw new Error(JSON.stringify(errorMessage))
             }
 
-            // dispatch(setLoading(false))
+            dispatch(setLoading(false))
             dispatch(setError(undefined))
 
             dispatch(setUserName(userName));
         }
         
         catch (error) {
-            // dispatch(setLoading(false))
+            dispatch(setLoading(false))
             dispatch(setError(JSON.parse(error.message)))
         }
     }

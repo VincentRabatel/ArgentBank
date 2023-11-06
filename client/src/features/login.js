@@ -20,7 +20,7 @@ export const login = createSlice({
             state.loading = action.payload;
         },
         setError: (state, action) => {
-            console.error("Error :", action.payload)
+            action.payload && console.error("Error :", action.payload)
             state.error = action.payload;
         },
 
@@ -35,6 +35,8 @@ export const login = createSlice({
 })
 
 export function fetchLogin(userInfos) {
+
+    console.trace("API fetching to login...");
 
     return async function(dispatch, getState) {
 
