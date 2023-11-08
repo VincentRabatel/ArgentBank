@@ -107,7 +107,7 @@ paths:
           description: Internal Server Error
 
 #Recevoir toutes les transactions pour le mois en cours
-  /transactions:
+  /{accountId}:
     get:
       security:
         - Bearer: []
@@ -115,6 +115,13 @@ paths:
         - Transactions Module
       summary: Transactions API
       description: API for retrieving current month's transactions
+      parameters:
+        - name: accountId
+          in: path
+          description: ID of the account to fetch
+          required: true
+          type: integer
+          format: int64
       responses:
         '200':
           description: Transactions retrieved successully
@@ -136,6 +143,12 @@ paths:
       summary: Transactions API
       description: API for adding a new transaction
       parameters:
+        - name: accountId
+          in: path
+          description: ID of the account to fetch
+          required: true
+          type: integer
+          format: int64
         - in: body
           name: body
           description: Transaction informations
@@ -155,7 +168,7 @@ paths:
           description: Internal Server Error
           
 #Recevoir les informations d'une transaction
-  /transactions/{id}:
+  /{accountId}/{transactionId}:
     get:
       security:
         - Bearer: []
@@ -163,6 +176,19 @@ paths:
         - Transactions Module
       summary: Transactions API
       description: API for retrieving a transaction by its id
+      parameters:
+        - name: accountId
+          in: path
+          description: ID of the account to fetch
+          required: true
+          type: integer
+          format: int64
+        - name: transactionId
+          in: path
+          description: ID of the transaction to fetch
+          required: true
+          type: integer
+          format: int64
       produces:
         - application/json
       responses:
@@ -177,7 +203,7 @@ paths:
         '500':
           description: Internal Server Error
 
-#Modifier les informations d'une transaction
+#Modifier une transaction
     put:
       security:
         - Bearer: []
@@ -186,6 +212,18 @@ paths:
       summary: Transactions API
       description: API for updating an existing transaction
       parameters:
+        - name: accountId
+          in: path
+          description: ID of the account to fetch
+          required: true
+          type: integer
+          format: int64
+        - name: transactionId
+          in: path
+          description: ID of the transaction to fetch
+          required: true
+          type: integer
+          format: int64
         - in: body
           name: body
           description: Transaction informations
@@ -199,6 +237,86 @@ paths:
           description: Transaction successfully updated
         '400':
           description: Invalid Transaction Informations
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+          
+#Modifier la catégorie d'une transaction
+  /{accountId}/{transactionId}/category:
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: Transactions API
+      description: API for updating the category of a transaction
+      parameters:
+        - name: accountId
+          in: path
+          description: ID of the account to fetch
+          required: true
+          type: integer
+          format: int64
+        - name: transactionId
+          in: path
+          description: ID of the transaction to fetch
+          required: true
+          type: integer
+          format: int64
+        - in: body
+          name: body
+          description: Transaction category
+          required: true
+          schema:
+            $ref: '#/definitions/TransactionCategory'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction category successfully updated
+        '400':
+          description: Invalid category
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+        
+#Modifier la catégorie d'une transaction
+  /{accountId}/{transactionId}/note:
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: Transactions API
+      description: API for updating the note of a transaction
+      parameters:
+        - name: accountId
+          in: path
+          description: ID of the account to fetch
+          required: true
+          type: integer
+          format: int64
+        - name: transactionId
+          in: path
+          description: ID of the transaction to fetch
+          required: true
+          type: integer
+          format: int64
+        - in: body
+          name: body
+          description: Transaction note
+          required: true
+          schema:
+            $ref: '#/definitions/TransactionNote'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction note successfully updated
+        '400':
+          description: Invalid category
         '401':
           description: Unauthorized
         '500':
@@ -272,8 +390,28 @@ definitions:
         type: string
       accountId:
         type: integer
+      transactionType:
+        type: string
+        enum:
+          - creditCard
+          - electonic
 
   ArrayOfTransactions:
     type: array
     items:
       $ref: '#/definitions/Transaction'
+      
+  TransactionCategory:
+   type: string
+   enum:
+    - food
+    - leisure
+    - shopping
+    - housing
+    - transportation
+    - subscription
+    - withdrawal
+    - other
+    
+  TransactionNote:
+    type: string
