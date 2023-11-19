@@ -44,11 +44,11 @@ export function fetchLogin(userInfos) {
 
         try {
             const response = await fetch("http://localhost:3001/api/v1/user/login", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify(userInfos)
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify(userInfos)
             });
 
             // Error management

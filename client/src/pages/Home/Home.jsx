@@ -8,9 +8,9 @@ import Hero from '../../components/Hero/Hero';
 import Feature from '../../components/Feature/Feature';
 
 // Import all images to configure Feature's props
-import featureLeftImage from "../../assets/icon-chat.png";
-import featureMidImage from "../../assets/icon-money.png";
-import featureRightImage from "../../assets/icon-security.png";
+import featureLeftImage from "../../assets/icon-chat.webp";
+import featureMidImage from "../../assets/icon-money.webp";
+import featureRightImage from "../../assets/icon-security.webp";
 
 // Create objects to configure Features
 const featureLeft = {

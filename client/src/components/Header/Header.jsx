@@ -1,5 +1,5 @@
 import './Header.css';
-import logo from '../../assets/argentBankLogo.png';
+import logo from '../../assets/argentBankLogo.webp';
 
 // React Router
 import { useNavigate } from 'react-router';
